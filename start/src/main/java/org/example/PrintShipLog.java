@@ -11,7 +11,7 @@ public class PrintShipLog {
     private static final Logger logger = LogManager.getLogger(PrintShipLog.class);
 
     private static final Path PATH =
-            Paths.get("alehina.kate/lab4/src/main/resources/entries.txt");
+            Paths.get("start/src/main/resources/entries.txt");
     private final ShipAccountingLog shipAccountingLog;
     private final List<Entry> entryList;
 
