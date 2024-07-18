@@ -1,5 +1,8 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.example.enums.Citizenship;
 import org.example.enums.ShipClass;
 
@@ -9,12 +12,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ReadFile {
-
+    private static final Logger logger = LogManager.getLogger(ReadFile.class);
     public List<Entry> readEntriesFromFile(Path path) {
+        logger.info("Начало чтения записей из файла.");
         List<Entry> entries;
 
         try(Stream<String> streamFromFiles = Files.lines(path)) {
@@ -32,8 +35,10 @@ public class ReadFile {
                     })
                     .toList();
         } catch (IOException e) {
+            logger.error("Ошибка при чтении файла!\n" + e.getMessage());
             throw new RuntimeException(e);
         }
+        logger.info("Записи прочитаны.");
         return entries;
     }
 }

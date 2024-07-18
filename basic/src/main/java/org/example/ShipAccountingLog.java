@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.example.enums.Citizenship;
 
@@ -13,10 +15,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ShipAccountingLog {
+    private static final Logger logger = LogManager.getLogger(ShipAccountingLog.class);
 
     // для каждой страны найти статистику по кораблям, взятым на абордаж
     public Map<Citizenship, Long> statisticsOnShipsBoarded(List<Entry> entryList) {
-
+        logger.info("Вызвана функция statisticsOnShipsBoarded.");
         return entryList.stream()
                 .filter(Entry::getIsBoarded)
                 .collect(Collectors.groupingBy(Entry::getCitizenship, Collectors.counting()));
@@ -24,6 +27,7 @@ public class ShipAccountingLog {
 
     // найти наименьший доходный месяц по золоту
     public YearMonth theLowestProfitableMonthInGold(List<Entry> entryList) {
+        logger.info("Вызвана функция theLowestProfitableMonthInGold.");
         // Создаем Map, в котором ключами будут YearMonth,
         // а значениями - суммарное кол-во золота за каждый месяц
         Map<YearMonth, BigDecimal> profitForMonth = entryList.stream()
@@ -46,7 +50,7 @@ public class ShipAccountingLog {
 
     // найти корабли, на которых возят самые большие запасы рома (за последние 3 года)
     public List<Entry> theLargestStocksOfRum(List<Entry> entryList) {
-
+        logger.info("Вызвана функция theLargestStocksOfRum");
         Optional<Integer> largestStocks = entryList.stream()
                 .map(Entry::getCountBarrelsRum)
                 .max(Integer::compare);
